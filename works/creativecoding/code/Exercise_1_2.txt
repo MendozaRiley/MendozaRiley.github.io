@@ -1,0 +1,67 @@
+float rand = 0;
+String gridName = "Ethel";
+String gridName2 = "Gertrude";
+int offset = 300;
+float col = 0;
+float colr = 0;
+float colrr = 0;
+float a = 0.0;
+float inc = TWO_PI/30.0;
+
+void setup() {
+  size(600, 600);
+  colorMode(HSB, 100);
+  background(0);
+  frameRate(5);
+  smooth(); 
+  strokeWeight(3);
+  stroke(60, 90, 50);
+
+}
+void draw() {
+  if (mousePressed == true) {
+   background(0);
+  }
+  col = map(mouseX, 0, 600, 48, 90);
+  colr = map(mouseY, 0, 400, 100, 100);
+  colrr = map(mouseY, 0, 400, 70, 100);
+  
+  stroke(col, colr, colrr);
+  
+  for (int i=50; i<550; i+=10) {
+    line(i, 300, i, offset + sin(a)*80.0);
+    println(" The angle = " + a + " The sin = " + sin(a));
+    a = a + inc;
+  }
+  
+  for (int i=mouseX - 600; i<600; i+=10) {
+    strokeWeight(1);
+    line(i, mouseY, i, mouseY + sin(a)*50.0);
+    println(" The angle = " + a + " The sin = " + sin(a));
+    a = a + inc;
+  }
+
+  strokeWeight(4);
+  for (int i = 5; i < 600; i += 20) {
+    for (int j = 5; j < 85; j += 20) {
+      fill(col, colrr, 50);
+      ellipse( i+5, j+5, 10, 10 );
+      println(gridName + ", now has a fill value of " + rand);
+    }
+  }
+  
+  for (int i = 5; i < 600; i += 20) {
+    for (int j = 525; j < 605; j += 20) {
+      ellipse( i+5, j+5, 10, 10 );
+      println(gridName2 + ", now has a fill value of " + rand);
+    }
+  }
+  
+  if (frameCount < 60) {
+    // Saves each frame as line-000001.png, line-000002.png, etc.
+    saveFrame("images/line-######.png");
+  } else {
+    exit();
+  }
+  
+}

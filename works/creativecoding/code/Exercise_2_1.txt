@@ -1,0 +1,174 @@
+int gSize = 100;
+int tCounter = 0;
+int counter = 600;
+int counter1 = 0;
+int counter2 = 0;
+int speed = 5;
+int speed1 = 5;
+int speed2 = 2;
+int colr = 255;
+PImage b;
+PImage b2;
+PFont f; 
+PFont f2;
+float strk = 0;
+
+void setup() { 
+  size(800, 800); 
+  background(0);
+  noStroke();
+  rectMode(RADIUS);
+  b = loadImage("shrek.png"); 
+  b2 = loadImage("shrek2.png");
+  
+  //printArray(PFont.list());
+  f = createFont("Yu Gothic Bold", 50);
+  textFont(f);
+  fill(colr, 255, colr);
+  text("OGRES ARE LIKE ONIONS", 100, 100);
+  
+} 
+
+void draw() { 
+  background(0);
+  tCounter ++;
+  if (tCounter > width) {
+    tCounter = -50;
+  }
+  
+  if (!mousePressed) {
+    
+    int checkCounter = 0; 
+
+      for ( int i = 0; i < height; i+= gSize) {
+        checkCounter++;
+
+        for ( int j = 0; j < width; j+=(gSize) ) {  
+        
+          if ( (checkCounter % 2) == 0 ) {
+            image(b2, j, i, gSize, gSize);
+          } else {
+            tint(255, 40);
+            image(b, j, i, gSize, gSize);
+          }
+          
+          checkCounter++;
+        }
+      }
+    
+  fill(255);
+  rect( width/2, height/2, 200, 200);
+  fill(0);
+  rect( width/2, height/2, 180, 180); 
+    
+  } else {
+  
+       int checkCounter = 0; 
+    
+        for ( int i = -300; i < height; i+= gSize) {
+        checkCounter++;
+
+        for ( int j = -300; j < width; j+=(gSize) ) {  
+        
+          if ( (checkCounter % 2) == 0 ) {
+            image(b, j, i, counter2, counter2);
+                
+            counter2 = counter2 + speed2;
+
+            if (counter2 > 600) {
+              speed2 = -speed2; 
+            } 
+     
+            if (counter2 < 0) {
+              speed2 = -speed2; 
+            }
+            
+          } else {
+            tint(0, 255, 200, 40);
+            image(b2, j, i, speed, speed);
+          }
+          
+          checkCounter++;
+        }
+      }
+    
+    
+    fill(255);
+    rect( width/2, height/2, 200, 200);
+    fill(0);
+    rect( width/2, height/2, 180, 180);
+    
+    
+    fill(colr, 255, colr);
+    f2 = createFont("Yu Gothic Bold", 100);
+    textFont(f2);
+    text("OGRES ARE LIKE ONIONS", counter1, 700);
+    text("OGRES ARE LIKE ONIONS", 0, counter1);
+    text("OGRES ARE LIKE ONIONS", 800 - counter1, 400);
+    text("OGRES ARE LIKE ONIONS", 0, height - counter1);
+    text("OGRES ARE LIKE ONIONS", counter, 100);
+    
+  }
+
+  
+  strk = map(mouseX, 0, 800, 0, 100);
+  stroke(255);
+  strokeWeight(strk);
+  noTint();
+  image(b, counter, counter, counter + 50, counter + 50);
+  image(b, counter1, counter1, counter1 + 50, counter1 + 50);
+
+  counter = counter + speed;
+
+  if (counter > 600) {
+    speed = -speed; 
+  } 
+     
+  if (counter < 0) {
+    speed = -speed; 
+  }
+  
+  counter1 = counter1 + speed1;
+  
+  if (counter1 < 0) {
+    speed1 = -speed1; 
+  }
+  
+  if (counter1 > 600) {
+    speed1 = -speed1;
+  }
+  
+      
+  fill(colr, 255, colr);
+  f = createFont("Yu Gothic Bold", 50);
+  textFont(f);
+  text("OGRES ARE LIKE ONIONS", tCounter, 100);
+  text("OGRES ARE LIKE ONIONS", 100, tCounter);
+  text("OGRES ARE LIKE ONIONS", 600 - tCounter, 700);
+  text("OGRES ARE LIKE ONIONS", 100, height - tCounter);
+  
+  //if (frameCount < 50) {
+    // Saves each frame as line-000001.png, line-000002.png, etc.
+    //saveFrame("images/line-######.png");
+  //} else {
+    //exit();
+  //}
+  
+}
+
+void keyPressed() { 
+
+  if ( key == 'b' || key == 'B' ) {  
+    if (colr == 0) { 
+      colr = 255;
+    } else {
+    colr = 0;
+    }
+  }
+}
+
+void mouseMoved() {
+  strokeWeight(strk);
+  noTint();
+  image(b2, 315, 350, 175, 100); 
+}
