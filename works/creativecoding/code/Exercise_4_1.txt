@@ -1,0 +1,179 @@
+int count = 10;
+int offset = 300;
+float a = 0.0;
+float inc = TWO_PI/30.0;
+float[] posX = new float[count];
+float[] posX2 = new float[count];
+float[] posX3 = new float[count];
+float[] posY = new float[count];
+float[] posY2 = new float[count];
+float[] posY3 = new float[count];
+float[] speedX = new float[count];
+float[] speedX2 = new float[count];
+float[] speedX3 = new float[count];
+float[] speedY = new float[count];
+float[] speedY2 = new float[count];
+float[] speedY3 = new float[count];
+float[] size = new float[count];
+int[] colors = new int[count];
+
+void setup() { 
+  size(900, 900);
+  for (int i=0; i < posX.length; i++) { 
+    posX[i] = width/2; 
+    posY[i] = height/2;
+    posX2[i] = size[i] + 10;
+    posY2[i] = size[i] + 10;
+    posX3[i] = width;
+    posY3[i] = height;
+    speedX[i] = random(-7, 7);
+    speedX2[i] = random(-10, 10);
+    speedX3[i] = random(-5, 5);
+    speedY[i] = random(-7, 7);
+    speedY2[i] = random(-10, 10);
+    speedY3[i] = random(-5, 5);
+    size[i] = random(.25, 2); 
+    colors[i] = int(random(60, 81));
+  }
+} 
+void draw() { 
+  background(80, 25, 80); 
+  colorMode(HSB, 100);
+  fill(0); 
+  rect(40, 40, width-80, height-80); 
+  for (int i = 0; i < posX.length; i++) { 
+    posX[i] += speedX[i]; 
+    posY[i] += speedY[i]; 
+    fill(colors[i]); 
+    push();
+    translate(posX[i], posY[i]);
+    rotate(radians(0));
+    scale(size[i]);
+    stroke(colors[i], 30, 100);
+    strokeWeight(3);
+      rmUFO1();
+    pop();
+    
+    if (posX[i] < 60+size[i] || posX[i] > (width-60)-size[i] ) { 
+      speedX[i] = -speedX[i];
+    } 
+    if (posY[i] < 60+size[i] || posY[i] > (height-60)-size[i]) { 
+      speedY[i] = -speedY[i];
+    }
+  }
+  
+  for (int i = 0; i < posX.length; i++) { 
+    posX2[i] += speedX2[i]; 
+    posY2[i] += speedY2[i]; 
+    fill(colors[i]); 
+    push();
+    translate(posX2[i], posY2[i]);
+    rotate(radians(0));
+    scale(size[i]);
+    stroke(colors[i], 30, 100);
+    strokeWeight(3);
+      rmUFO2();
+    pop();
+    
+    if (posX2[i] < size[i] || posX2[i] > width-size[i] ) { 
+      speedX2[i] = -speedX2[i];
+    } 
+    if (posY2[i] < size[i] || posY2[i] > height-size[i]) { 
+      speedY2[i] = -speedY2[i];
+    }
+  }
+  
+  for (int i = 0; i < posX.length; i++) { 
+    posX3[i] += speedX3[i]; 
+    posY3[i] += speedY3[i]; 
+    fill(colors[i]); 
+    push();
+    translate(posX3[i], posY3[i]);
+    rotate(radians(0));
+    scale(size[i]);
+    stroke(colors[i], 30, 100);
+    strokeWeight(3);
+      rmUFO3();
+    pop();
+    
+    if (posX3[i] < 0 || posX3[i] > width) { 
+      speedX3[i] = -speedX3[i];
+    } 
+    if (posY3[i] < 0 || posY3[i] > height) { 
+      speedY3[i] = -speedY3[i];
+    }
+  }
+  
+  //if (frameCount < 200) {
+    //saveFrame("images/line-######.png");
+  //} else {
+    //exit();
+  //}
+} 
+
+void rmUFO1() {
+  color k = color(0, 0, 95);
+  strokeWeight(3);
+  rmUTop(0, 0, 1, k);
+  rmUBot(0, 0 + 15, 0, 0, k);
+}
+
+void rmUFO2() {
+  color k = color(0, 0, 80);
+  strokeWeight(3);
+  rmUTop(0, 0, 0, k);
+  rmUBot(0, 0 + 15, 1, 0, k);
+}
+
+void rmUFO3() {
+  color k = color(0, 0, 40);
+  strokeWeight(3);
+  rmUTop(0, 0, 1, k);
+  rmUBot(0, 0 + 15, 0, 1, k);
+}
+
+void rmUTop(int xpos, int ypos, int window, color c) { 
+  fill(c);
+  arc(xpos,ypos,60,70,PI,TWO_PI,CHORD);
+  
+  if (window == 1) {
+    fill(50, 30, 100);
+    circle(xpos, ypos - 15, 20); 
+  }
+  
+  if (window == 0) {
+    fill(81, 0, 100);
+    circle(xpos, ypos - 15, 20); 
+  }
+}
+
+void rmUBot(int xpos, int ypos, int light, int ray, color c){
+  fill(c);
+  arc(xpos,ypos,100,40,PI,TWO_PI,CHORD);
+  
+  if (light == 1) {
+    stroke(0,0,100,20);
+    strokeWeight(8);
+    fill(100);
+    triangle(xpos, ypos, xpos - 20, ypos + 300, xpos + 20, ypos + 300);
+  }
+  
+  if (ray == 1) {
+    push();
+    stroke(50, 30, 100);
+    strokeWeight(2);
+    translate(0 + 220, 0 - 20);
+    rotate(radians(90));
+    scale(.75);
+    rmRays();
+    pop();
+  }
+
+}
+
+void rmRays() {
+  for (int i=50; i<750; i+=10) {
+    line(i, 300, i, offset + sin(a)*60.0);
+    a = a + inc;
+  }
+}

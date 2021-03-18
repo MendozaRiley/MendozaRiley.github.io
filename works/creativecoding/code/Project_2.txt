@@ -1,0 +1,220 @@
+rmSpace planet0;
+rmSpace planet1;
+rmSpace planet2;
+rmSpace ufo;
+int offset = 300;
+int count = 15;
+float system = 0;
+float[] posX = new float[count];
+float[] posX2 = new float[count];
+float[] posY = new float[count];
+float[] posY2 = new float[count];
+float[] speedX = new float[count];
+float[] speedX2 = new float[count];
+float[] speedY = new float[count];
+float[] speedY2 = new float[count];
+float[] sizeA = new float[count];
+float[] colors = new float[count];
+float a = 0.0;
+float inc = TWO_PI/30.0;
+
+void setup() {
+  size(1920,1080);
+  colorMode(HSB, 100);
+  background(75, 100, 10);  
+  frameRate(20);
+  planet0 = new rmSpace(width/2 + 50,height/2 + 100, 40, .98, 8.0, 0.1);
+  planet1 = new rmSpace(width/2 - 100,height/2 - 75, 120, 0.95, 9.0, 0.1);
+  planet2 = new rmSpace(width/2,height/2, 200, 0.90, 9.9, 0.1);
+  ufo = new rmSpace(random(width), random(height), 80, 0, 0, 0);
+  
+  for (int i=0; i < posX.length; i++) { 
+    posX[i] = width/2; 
+    posY[i] = height/2;
+    posX2[i] = sizeA[i] + 10;
+    posY2[i] = sizeA[i] + 10;
+    speedX[i] = random(-7, 7);
+    speedX2[i] = random(-10, 10);
+    speedY[i] = random(-7, 7);
+    speedY2[i] = random(-10, 10);
+    sizeA[i] = random(.25, 2); 
+    colors[i] = (random(60, 81));
+  }
+}
+
+void draw() {
+ 
+  for (int i = 0; i < posX.length; i++) { 
+    posX2[i] += speedX2[i]; 
+    posY2[i] += speedY2[i]; 
+    
+    if (millis() < 15000 || millis() > 30000) {
+      stroke(100, 20);
+    } else {
+      stroke(75, 100, 10, 20);
+    }
+    strokeWeight(2);
+    line(0, 0, posX2[i], posY2[i]);
+    line(width, height, posX2[i], posY2[i]);
+    
+    if (posX2[i] < sizeA[i] || posX2[i] > width-sizeA[i] ) { 
+      speedX2[i] = -speedX2[i];
+    } 
+    if (posY2[i] < sizeA[i] || posY2[i] > height-sizeA[i]) { 
+      speedY2[i] = -speedY2[i];
+    }
+  }
+  
+  if (frameCount % 100 == 0) {
+    ufo.rmUFOs(random(width), random(height));
+  }
+
+    planet0.update();
+    planet1.update();
+    planet2.update();
+    color k = color(55, 40, 100);
+    planet0.rmRocks(k, 0);
+    color k2 = color(70, 40, 100);
+    planet1.rmRocks(k2, 1);
+    color k3 = color(80, 40, 100);
+    planet2.rmRocks(k3, 2);
+
+  
+  rmStars();
+  
+  //if (frameCount < 1000) {
+    //saveFrame("images/line-######.png");
+  //} else {
+    //exit();
+  //}
+  
+}
+
+class rmSpace {
+  float xpos, ypos;
+  float tempxpos, tempypos; 
+  int size = 20; 
+  boolean over = true; 
+  boolean move = true;
+  
+  float mass;        
+  float k = 0.5;     
+  float damp;        
+  float rest_posx;   
+  float rest_posy;  
+
+  float pos = 20.0;  
+  float velx = 0.0;    
+  float vely = 0.0;    
+  float accel = 0;    
+  float force = 0;    
+  color c;
+
+  rmSpace(float x, float y, int s, float d, float m, 
+  float k_in) { 
+    xpos = tempxpos = mouseX; 
+    ypos = tempypos = mouseY;
+    rest_posx = x;
+    rest_posy = y;
+    size = s;
+    damp = d; 
+    mass = m; 
+    k = k_in;
+  }
+  
+  void rmRocks(color c, int planet) { 
+    
+    stroke(100, 0, 100, 30);
+    strokeWeight(10);    
+    
+    if (planet == 0) {
+      rmPlanet1(c, tempxpos, tempypos, size);
+    }
+    if (planet == 1) {
+      rmPlanet2(c, tempxpos, tempypos, size);
+    }
+    if (planet == 2) {
+      rmPlanet3(c, tempxpos, tempypos, size, size);
+    }
+
+  }
+  
+  void rmUFOs(float xpos, float ypos) {
+    
+    for (int i = 0; i < posX.length; i++) {   
+      stroke(colors[i], 30, 100);
+      strokeWeight(3);
+    }    
+    
+    fill(50, 20);
+    arc(xpos,ypos,60,70,PI,TWO_PI,CHORD);
+    arc(xpos,ypos + 15,100,40,PI,TWO_PI,CHORD);
+    fill(81, 0, 100);
+    circle(xpos, ypos - 15, 20); 
+    
+  }
+  
+  void update() { 
+    
+    if (move) { 
+      rest_posy = mouseY; 
+      rest_posx = mouseX;
+    } 
+
+    force = -k * (tempypos - rest_posy);  
+    accel = force / mass;                  
+    vely = damp * (vely + accel);         
+    tempypos = tempypos + vely;            
+
+    force = -k * (tempxpos - rest_posx);  
+    accel = force / mass;                  
+    velx = damp * (velx + accel);          
+    tempxpos = tempxpos + velx;            
+
+  }   
+}
+
+void rmPlanet1(color c, float xpos, float ypos, int w) {
+  
+  stroke(c);
+  strokeWeight(2);
+  fill(100, 15);
+  circle(xpos, ypos, w);
+  circle(xpos, ypos, w-random(60,70));
+  
+}
+
+void rmPlanet2(color c, float xpos, float ypos, int w) {
+  
+  stroke(c);
+  strokeWeight(2);
+  fill(100, 10);
+  circle(xpos, ypos, w);
+  circle(xpos + random(30,40), ypos - random(10,20), w/8);
+  circle(xpos + random(18,28), ypos - random(22,32), w/9);
+  
+}
+
+void rmPlanet3(color c, float xpos, float ypos, int w, int h) {
+ 
+  stroke(c);
+  strokeWeight(2);
+  fill(100, 5);
+  ellipse(xpos, ypos, w, h);
+  ellipse(xpos, ypos, w + w + random(10), h/3 + random(-5,5));
+  ellipse(xpos, ypos, w + w/4 + random(-5,5), h/5 + random(-5,5));
+  
+}
+
+void rmStars() {
+  
+  float r = random(5);
+  float rloop = random(20);
+  float rS = random(100);
+  for (int i = 0; i < rloop; i+=1) {
+    noStroke();
+    fill(100, rS);
+    circle(random(width), random(height), r);
+  }
+  
+}

@@ -1,0 +1,295 @@
+UFO rmUfo1;
+UFO rmUfo2;
+UFO rmUfo3;
+int offset = 300;
+int count = 15;
+float xcow = 900;
+float speed = 0.25;
+int[] colors = new int[count];
+float[] posX = new float[count];
+float[] posY = new float[count];
+float[] speedX = new float[count];
+float[] speedY = new float[count];
+float[] size = new float[count];
+float a = 0.0;
+float inc = TWO_PI/30.0;
+
+void setup() {
+  size(900,900);
+  colorMode(HSB, 100);
+  frameRate(20);
+  color col = color(100);
+  rmUfo1 = new UFO(col,width/2,height/2, "Take us to your leader.");
+  rmUfo2 = new UFO(col,width/2,height/2, "Bleep bloop.");
+  rmUfo3 = new UFO(col,width/2,height/2, "We will destroy you all.");
+  for (int i=0; i < posX.length; i++) { 
+    posX[i] = width/2; 
+    posY[i] = height/2;
+    colors[i] = int(random(60, 81));
+    speedX[i] = random(-7, 7);
+    speedY[i] = random(-7, 7);
+    size[i] = random(.25, 2); 
+  }
+}
+
+void draw() {
+  background(75, 100, 20);  
+  fill(100);
+  noStroke();
+  circle(width/2, height/2, 100);
+  rmStars();
+  
+  if (mousePressed && (mouseButton == LEFT)) {
+    push();
+    translate(-440, -550);
+    rotate(radians(0));
+    scale(2);
+      rmUfo2.abduct();
+    pop();
+  } else if (mousePressed && (mouseButton == RIGHT)) {
+    rmUfo3.attack();
+        
+    if (keyPressed == true) {
+    rmUfo3.invasion();
+    } else {
+    }
+    
+  } else {
+    rmUfo1.hover();
+    
+    if (keyPressed == true) {
+    rmUfo1.partytime();
+    } else {
+    }
+    
+  }
+  
+  //if (frameCount < 200) {
+    //saveFrame("images/line-######.png");
+  //} else {
+    //exit();
+  //}
+  
+}
+
+class UFO { 
+  color c;
+  float xpos;
+  float ypos;
+  String orifice;
+ 
+  UFO(color tempC, float tempXpos, float tempYpos, String oa) { 
+    c = tempC;
+    xpos = tempXpos;
+    ypos = tempYpos;
+    orifice =  "" + oa;
+   
+  }
+  
+  void hover() {
+    fill(c);
+    for (int i = 0; i < posX.length; i++) { 
+      stroke(colors[i], 30, 100);
+      strokeWeight(3);
+      rmUFO1(xpos, ypos);
+    }
+    fill(100);
+    text(orifice,xpos-65,ypos-50);
+    xpos += random(-3,3);
+    ypos += random(-3,3);
+  }
+  
+  void abduct() {
+    fill(c);
+    for (int i = 0; i < posX.length; i++) { 
+      stroke(colors[i], 30, 100);
+      strokeWeight(3);
+      rmUFO2(xpos,ypos);
+    }
+    fill(100);
+    text(orifice,xpos-35,ypos-50);
+    xpos += random(-1,1);
+    ypos += random(-1,1);
+  } 
+ 
+  void attack() {
+    fill(c);
+    for (int i = 0; i < posX.length; i++) { 
+      stroke(colors[i], 30, 100);
+      strokeWeight(3);
+      rmUFO3(xpos, ypos);
+    }
+    fill(100);
+    text(orifice,xpos-65,ypos-50);
+    xpos += random(-3,3);
+    ypos += random(-3,3);
+  }
+  
+  void partytime() {
+    float r = random(.25, 2);
+    for (int i = 0; i < posX.length; i++) { 
+      stroke(colors[i], 30, 100);
+      strokeWeight(3);
+      for (int j = 0; j < r; j+=1) {
+         push();
+         translate(0,0);
+         rotate(radians(0));
+         scale(r);
+         rmUFO1(random(width), random(height));
+         pop();
+      } 
+    }
+    
+  }
+  
+  void invasion() {
+    for (int i = 0; i < posX.length; i++) { 
+      posX[i] += speedX[i]; 
+      posY[i] += speedY[i]; 
+      fill(colors[i]); 
+      push();
+      translate(posX[i], posY[i]);
+      rotate(radians(0));
+      scale(size[i]);
+      stroke(colors[i], 30, 100);
+      strokeWeight(3);
+        rmUFO3(0,0);
+      pop();
+    
+      if (posX[i] < 60+size[i] || posX[i] > (width-60)-size[i] ) { 
+        speedX[i] = -speedX[i];
+      } 
+      if (posY[i] < 60+size[i] || posY[i] > (height-60)-size[i]) { 
+        speedY[i] = -speedY[i];
+      }
+    }  
+  }
+}
+
+void rmUFO1(float x, float y) {
+  color k = color(0, 0, 95);
+  strokeWeight(3);
+  rmUBot(x, y + 15, 0, 0, k);
+  rmUTop(x, y, 1, k);
+}
+
+void rmUFO2(float x, float y) {
+  color k = color(0, 0, 85);
+  strokeWeight(3);
+  rmUBot(x, y + 15, 1, 0, k);
+  rmUTop(x, y, 0, k);
+}
+
+void rmUFO3(float x, float y) {
+  color k = color(0, 0, 50);
+  strokeWeight(3);
+  rmUBot(x, y + 15, 0, 1, k);
+  rmUTop(x, y, 1, k);
+
+}
+
+void rmUBot(float xpos, float ypos, int light, int ray, color c){
+  if (light == 1) {
+    stroke(0,0,100,20);
+    strokeWeight(8);
+    fill(100);
+    triangle(xpos, ypos, xpos - random(-30, 30), ypos + 300, xpos + random(-30, 30), ypos + 300);
+    
+    push();
+    translate(560, xcow);
+    rotate(radians(180));
+    scale(.25);
+    rmCow(xpos, ypos);
+    pop();
+    
+    xcow= xcow + speed;
+    if ((xcow < 575) || (xcow > 900)) {
+      speed = -speed;
+    }
+}
+  
+  if (ray == 1) {
+    push();
+    stroke(50, 30, 100);
+    strokeWeight(2);
+    translate(xpos + 220, ypos - 30);
+    rotate(radians(90));
+    scale(.75);
+    rmRays();
+    pop();
+  }
+  fill(c); 
+  for (int i = 0; i < posX.length; i++) { 
+    stroke(colors[i], 30, 100);
+    strokeWeight(3);
+    arc(xpos,ypos,100,40,PI,TWO_PI,CHORD);
+  }
+}
+
+void rmUTop(float xpos, float ypos, int window, color c) { 
+  fill(c);
+  arc(xpos,ypos,60,70,PI,TWO_PI,CHORD);
+  
+  if (window == 1) {
+    fill(50, 30, 100);
+    circle(xpos, ypos - 15, 20); 
+  }
+  
+  if (window == 0) {
+    fill(81, 0, 100);
+    circle(xpos, ypos - 15, 20); 
+  }
+}
+
+void rmRays() {
+  for (int i=50; i<750; i+=10) {
+    line(i, 300, i, offset + sin(a)*60.0);
+    a = a + inc;
+  }
+}
+
+void rmStars() {
+  float r = random(5);
+  float rS = random(100);
+  for (int i = 0; i < r; i+=1) {
+    noStroke();
+    fill(100, rS);
+    circle(random(width), random(height), r);
+  }
+}
+
+void rmCow(float xpos, float ypos) {
+  rmCHead(xpos, ypos);
+  rmCBody(xpos, ypos);
+}
+
+void rmCHead(float xpos, float ypos) {
+  fill(100);
+  stroke(0);
+  strokeWeight(2);
+  ellipse(xpos - 60, ypos, 30, 50);
+  noStroke();
+  fill(0);
+  ellipse(xpos - 80, ypos - 10, 20, 7);
+  ellipse(xpos - 40, ypos - 10, 20, 7);
+  ellipse(xpos - 50, ypos, 10, 30);
+  ellipse(xpos - 70, ypos, 10, 30);
+}
+
+void rmCBody(float xpos, float ypos) {
+  fill(100);
+  stroke(0);
+  strokeWeight(2);
+  rect(xpos - 50, ypos, 100, 50);
+  rect(xpos - 50, ypos + 50, 15, 30);
+  rect(xpos + 35, ypos + 50, 15, 30);
+  noStroke();
+  fill(0);
+  ellipse(xpos, ypos + 23, 30, 50);
+  ellipse(xpos + 20, ypos + 40, 60, 30);
+  ellipse(xpos + 20, ypos + 25, 30, 20);
+  ellipse(xpos + 20, ypos + 25, 30, 20);
+  ellipse(xpos + 45, ypos + 50, 15, 40);
+  ellipse(xpos - 43, ypos + 55, 15, 30);
+  ellipse(xpos - 35, ypos + 40, 30, 20);
+}
