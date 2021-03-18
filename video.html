@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <title>Riley Mendoza</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -14,9 +13,6 @@
     height: 200px;
     background: #aaa;
   }
-  </style>
-
-  <style type="text/css">
     #main-footer{
       font-size: 12px;
       color: white;
@@ -28,30 +24,27 @@
       background-color: black;
       color: white;
     }
-  </style>
-
-  <style>
 
     .yModal {
-      display: none; / Hidden by default /
-      position: fixed; / Stay in place /
-      z-index: 3; / Sit on top /
+      display: none; 
+      position: fixed; 
+      z-index: 3; 
       left: 0;
       top: 0;
-      width: 100%; / Full width /
-      height: 100%; / Full height /
-      overflow: auto; / Enable scroll if needed /
-      background-color: rgb(0,0,0); / Fallback color /
-      background-color: rgba(0,0,0,0.4); / Black w/ opacity /
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.4); 
     }
 
 
     .yModal-content {
-      background-color: white;
-      margin: 15% auto; / 15% from the top and centered /
+      background-color: black;
+      margin: 15% auto; 
       padding: 20px;
       border: 1px solid #888;
-      width: 80%; / Could be more or less, depending on screen size /
+      width: 80%;
     }
 
 
@@ -59,9 +52,9 @@
       color: white;
       background-color: #555555;
       float: right;
-      font-size: 28px;
-      font-weight: bold;
+      font-size: 18px;
       border-radius: 4px;
+      padding: 10px;
     }
 
     .yClose:hover,
@@ -75,27 +68,28 @@
 
     .yModal-header {
       padding: 2px 16px;
-      background-color: white;
+      background-color: black;
       color: white;
     }
 
 
     .yModal-body {
       padding: 2px 16px;
-      background-color: white;
+      background-color: black;
       text-align:center;
+      color: white;
     }
 
 
     .yModal-footer {
       padding: 2px 16px;
-      background-color: white;
+      background-color: black;
     }
 
 
     .yModal-content {
       position: relative;
-      background-color: #fefefe;
+      background-color: black;
       margin: auto;
       padding: 0;
       border: 1px solid #888;
@@ -104,6 +98,13 @@
       animation-name: animatetop;
       animation-duration: 0.4s
     }
+
+    /* Add Animation */
+  @keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+  }
+    
 
   </style>
 
@@ -346,83 +347,128 @@
       </div>
     </div>
 
-    <div class="col-sm-4">
-      <div class="container-fluid">
+  <div class="col-md-4 justify-content-center">
+          
+    <div class="container-fluid">
         <img class="img-fluid" src="works/video/yinyang.png">
+    </div>
+    <br>
+    <!-- Button to Open the Modal -->
+    <button id="yBtn" type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#drawing3">"YinYang"</button>
+
+  <!-- The Modal -->
+  <div id="yinyangModal" class="yModal">
+
+  <!-- Modal content -->
+  <div class="yModal-content">
+    <div class="yModal-header">
+    <div id="title" style="width: 100%">
+        <br>
+      <h4>"YinYang"</h4>
+      Note: Unmute Audio
+        <br>
+    </div>
+      
+    <div class="containter-fluid" style="width=100%">
+    <div class="row">
+      <div class="col">
+    <iframe width="440" height="317"
+      src="https://www.youtube.com/embed/YU7XurxQXX4?autoplay=1&mute=1">
+    </iframe>
       </div>
-
-      <br>
-
-      <!-- Button to Open the Modal -->
-      <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#myModal5"> "YinYang"
-      </button>
-
-      <!-- The Modal -->
-      <div class="modal" id="myModal5">
-        <div class="modal-dialog">
-          <div class="modal-content" id="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">"YinYang"</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body" id="modal-body">
-              <div class="d-flex justify-content-center">
-                <div class="container-fluid">
-                  <img class="img-fluid" src="works/video/yinyang1.png">
-                </div>
-              </div>
-              <br>
-              <div class="d-flex justify-content-center">
-                <div class="container-fluid">
-                  <img class="img-fluid" src="works/video/yinyang2.png">
-                </div>
-              </div>
-              <br>
-              <div> 
-                <p>"YinYang," Virtual Digital Video Installation, 3 m 43 s, 2020</p>
-                <p>I collaborated with <a href="https://lime0021.github.io/index.html" target=" ">Lily Mendoza</a> for "YinYang." This piece is inspired by the complementary relationship between light and darkness. While the videos initially separate the light from the darkness through parallels and juxtaposition, the narrative concludes with the presence of both forces in both worlds and characters. Thus, the work reveals the interrelation of both concepts which are a part of every person and the basis of the complexity of human nature and life itself. This collection of four short films are meant to be projected simultaneously on the four walls of a room. We wanted to immerse the viewer in the two realms that we created, so they can experience the light and dark closely without escape.</p>
-                <p>Featuring: Leksi Lincoln, Lanie Lincoln, and Gabe Mendoza</p>
-                <p>Music:</p>
-                <nav>
-                  <ul>
-                    <li>Willow Trees - Adobe Stock</li>
-                    <li>Apocalypse - Adobe Stock</li>
-                    <li>Radio Static - gowlermusic</li>
-                    <li>Film_Static_04 - JoeDeshon</li>
-                  </ul>
-                </nav>
-              </div>
-              <br>
-              <div class="container-fluid">
-                <div class="d-flex justify-content-center">
-                  <iframe width="679" height="480" src="https://www.youtube.com/embed/YU7XurxQXX4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <iframe width="679" height="480" src="https://www.youtube.com/embed/XdjL0KzXkXk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <iframe width="679" height="480" src="https://www.youtube.com/embed/ABd_m2SwpXI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <iframe width="679" height="480" src="https://www.youtube.com/embed/HO69SdDxius" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-              </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
+      <div class="col">
+    <iframe width="440" height="317"
+      src="https://www.youtube.com/embed/XdjL0KzXkXk?autoplay=1&mute=1">
+    </iframe>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col">
+    <iframe width="440" height="317"
+      src="https://www.youtube.com/embed/HO69SdDxius?autoplay=1&mute=1">
+    </iframe>
+      </div>
+      <div class="col">
+    <iframe width="440" height="317"
+      src="https://www.youtube.com/embed/ABd_m2SwpXI?autoplay=1&mute=1">
+    </iframe>
+      </div>
       </div>
     </div>
 
 
   </div>
+<div class="yModal-body">
+   <div id="text" style="width:70%" class="mx-auto d-block">
+       <br>
+     "YinYang", Virtual Digital Video Installation, 3 m 43 s, 2020
+           <br>
+             <br>
+            I collaborated with <a href="https://lime0021.github.io/index.html" target=" ">Lily Mendoza</a> for "YinYang." This piece is inspired by the complementary relationship between light and darkness. While the videos initially separate the light from the darkness through parallels and juxtaposition, the narrative concludes with the presence of both forces in both worlds and characters. Thus, the work reveals the interrelation of both concepts which are a part of every person and the basis of the complexity of human nature and life itself. This collection of four short films are meant to be projected simultaneously on the four walls of a room. We wanted to immerse the viewer in the two realms that we created, so they can experience the light and dark closely without escape.
+             <br>
+             <br>
+             Featuring: Leksi Lincoln, Lanie Lincoln, and Gabe Mendoza
+             <br>
+             <br>
+             Music:
+             <br>
+             Willow Trees - Adobe Stock
+             <br>
+             Apocalypse - Adobe Stock
+             <br>
+             Radio Static - gowlermusic
+             <br>
+             Film_Static_04 - JoeDeshon
+     
+     <br><br>
+      </div>    
+ </div> 
+  
+ 
+ <div class="yModal-footer">
+          <span class="yClose">Close</span>
+
+   <br>
+   <br>
+    </div>
+   
+</div>  
+
+    </div>
+  </div>
+  </div>
 </div>
 
+
+
+<script>
+    
+ 
+var yModal = document.getElementById("yinyangModal");
+
+
+var btn = document.getElementById("yBtn");
+
+
+var span = document.getElementsByClassName("yClose")[0];
+
+
+btn.onclick = function() {
+  yModal.style.display = "block";
+}
+
+span.onclick = function() {
+  yModal.style.display = "none";
+}
+
+
+window.onclick = function(event) {
+  if (event.target == yModal) {
+    yModal.style.display = "none";
+  }
+}
+</script>
+  
 
 <div class="jumbotron text-center" style="margin-bottom:0; background-color: #00001a;">
   <footer id="main-footer">
