@@ -1,0 +1,179 @@
+int counter = 0;
+int counter2 = 40;
+int counter3 = 100;
+int counter4 = 400;
+int counter5 = 560;
+int counter6 = 600;
+int speed3 = 2;
+int speed2 = 5;
+int speed4 = 2;
+int speed5 = 5;
+void setup() {
+  
+  size(600, 600);
+  background(0);
+  noStroke();
+  frameRate(10);
+  
+}
+
+void draw() {
+  
+  
+  for (int i=200; i < 300; i+=20) {
+    stroke(255);
+    strokeWeight(1);
+    fill(0, 50, 150);
+    rect(counter4-205, i, 200, 10);
+    fill(200, 200, 255);
+    rect(i, counter4-205, 10, 200);
+  }
+  
+  for (int i=300; i < 400; i+=20) {
+    stroke(255);
+    strokeWeight(1);
+
+    fill(0, 50, 150);
+    rect(counter3+200, i, 200, 10);
+    fill(200, 200, 255);
+    rect(i, counter3+200, 10, 200);
+  }
+  
+  
+  stroke(255,255,255);
+  strokeWeight(2);
+  
+    if (mousePressed && (mouseButton == LEFT)) {
+      strokeWeight(random(15));
+    } else if (mousePressed && (mouseButton == RIGHT)){
+      stroke(255, random(255));
+      strokeWeight(5);
+    } else {
+      stroke(255);
+      strokeWeight(1);
+    }
+    fill(220, 100, 255, 200);
+    ellipse(mouseX, counter, counter3 - 150, counter3 - 200);
+    fill(255, 0, 255, 100);
+    circle(counter, mouseY, counter3 - 200);
+   
+
+  if (counter > height) {
+    background(0);
+    
+    fill(220, 100, 255, 200);
+    ellipse(mouseX, counter, counter3 - 150, counter3 - 200);
+    fill(255, 0, 255, 100);
+    circle(counter, mouseY, counter3 - 200);
+    
+    println(counter);
+    counter = 0;
+    
+  } else {
+  counter+=10;
+  }
+  
+   fill(220, 100, 255, 200);
+   circle(mouseX, counter6, counter3 - 200);
+   fill(255, 0, 255, 100);
+   ellipse(counter6, mouseY, counter3 - 200, counter3 - 150);
+
+  if (counter6 < 0) {
+    
+    fill(220, 100, 255, 200);
+    circle(mouseX, counter6, counter3 - 200);
+    fill(255, 0, 255, 100);
+    ellipse(counter6, mouseY, counter3 - 200, counter3 - 150);
+    
+    counter6 = 600;
+  } else {
+  counter6-=10;
+  }
+  
+  println(counter6);
+
+  
+  if (keyPressed == true) {
+    fill(0, 255, 255, 200);
+  } else {
+    fill(255, 0, 255, 100);
+  }
+  
+  for (int i = 300; i < 600; i += 25) {
+    if (i < 450) {
+      strokeWeight(5);
+      stroke(0, 100, 150);
+      rect(counter3, i, 150, 10 );
+      counter3= counter3 + speed3;
+      if (counter3 > 400) {
+        speed3 = -speed3;
+      }
+  
+      if (counter3 < 100) {
+        speed3 = -speed3;
+      }
+     
+    println(counter3);  
+    
+    } else {
+      strokeWeight(3);
+      stroke(150, 0, 200);
+      line( counter2, i, counter3+100, i );
+      counter2= counter2 + speed2;
+      
+      if (counter2 > 610) {
+        speed2 = -speed2;
+      }
+      
+      if (counter2 < -10) {
+        speed2 = -speed2;
+      }
+      
+    }
+    println(counter2);
+  }
+ 
+    
+  for (int i = 5; i < 300; i += 25) {
+    
+    if (i > 150) {
+      strokeWeight(5);
+      stroke(0, 100, 150);
+      rect( counter4, i, 150, 10 );
+      
+      counter4= counter4 - speed4;
+      
+      if (counter4 < 100) {
+        speed4 = -speed4;
+      }
+      if (counter4 > 400) {
+       speed4 = -speed4; 
+      }
+      
+      println(counter4);
+
+    } else {
+      strokeWeight(3);
+      stroke(150, 0, 200);
+      line( counter4-100, i, counter5, i );
+      
+      counter5 = counter5 - speed5;
+      
+      if (counter5 < -10) {
+       speed5 = -speed5; 
+      }
+      if (counter5 > 610) {
+       speed5 = -speed5; 
+      }
+    }
+    println(counter5);
+
+  }
+  
+  //if (frameCount < 80) {
+    // Saves each frame as line-000001.png, line-000002.png, etc.
+    //saveFrame("images/line-######.png");
+  //} else {
+    //exit();
+  //}
+}
